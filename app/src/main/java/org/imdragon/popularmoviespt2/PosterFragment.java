@@ -1,8 +1,6 @@
 package org.imdragon.popularmoviespt2;
 
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -104,7 +102,7 @@ public class PosterFragment extends Fragment {
     // TODO: Rename method, update argument and hook method into UI event
 //    public void onButtonPressed(Uri uri) {
 //        if (mListener != null) {
-//            mListener.onFragmentInteraction(uri);
+//            mListener.onPosterSelected(uri);
 //        }
 //    }
 
@@ -137,7 +135,7 @@ public class PosterFragment extends Fragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(int position);
+        void onPosterSelected(Movie chosenMovie);
     }
 
     public void setupGrid() {
@@ -147,7 +145,7 @@ public class PosterFragment extends Fragment {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
-                mListener.onFragmentInteraction(position);
+                sendMovie(movieObjectArray.get(position));
 //                Movie movieDetails = movieObjectArray.get(position);
 //                Log.e("movieID", movieObjectArray.get(position).getMovieId());
 //                Intent i = new Intent(getContext(), DetailsFragment.class);
@@ -155,6 +153,10 @@ public class PosterFragment extends Fragment {
 //                startActivity(i);
             }
         });
+    }
+
+    public void sendMovie(Movie pickedMovie){
+        mListener.onPosterSelected(pickedMovie);
     }
 
         @Override

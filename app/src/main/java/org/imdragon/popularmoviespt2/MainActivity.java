@@ -1,16 +1,16 @@
 package org.imdragon.popularmoviespt2;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.widget.Toast;
 
+import org.imdragon.popularmoviespt2.PosterFragment.OnFragmentInteractionListener;
+
 import java.util.ArrayList;
 
-public class MainActivity extends FragmentActivity implements PosterFragment.OnFragmentInteractionListener {
-    public ArrayList moviePosterAddress = new ArrayList();
-    public ArrayList<Movie> movieObjectArray;
+public class MainActivity extends FragmentActivity implements OnFragmentInteractionListener {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +42,48 @@ public class MainActivity extends FragmentActivity implements PosterFragment.OnF
 
 
     @Override
-    public void onFragmentInteraction(int position) {
-        Toast.makeText(MainActivity.this, position, Toast.LENGTH_SHORT).show();
+    public void onPosterSelected(Movie chosenMovie) {
+
+        DetailsFragment detailsFragment = (DetailsFragment) getSupportFragmentManager().findFragmentById(R.id.details_fragment);
+
+        if (detailsFragment != null) {
+
+        }else{
+            ///******* SAMPLE CODE! ***********
+//            // If the frag is not available, we're in the one-pane layout and must swap frags...
+//
+//            // Create fragment and give it an argument for the selected article
+//            ArticleFragment newFragment = new ArticleFragment();
+//            Bundle args = new Bundle();
+//            args.putInt(ArticleFragment.ARG_POSITION, position);
+//            newFragment.setArguments(args);
+//            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//
+//            // Replace whatever is in the fragment_container view with this fragment,
+//            // and add the transaction to the back stack so the user can navigate back
+//            transaction.replace(R.id.fragment_container, newFragment);
+//            transaction.addToBackStack(null);
+//
+//            // Commit the transaction
+//            transaction.commit();
+            ///******* SAMPLE CODE! ***********
+
+            DetailsFragment dFrag = new DetailsFragment();
+
+            Bundle movDetails = new Bundle();
+
+            Movie movieDetails = chosenMovie;
+            Log.e("movieID", chosenMovie.getMovieId());
+            movDetails.putParcelable("movieInfo", movieDetails);
+            dFrag.setArguments(movDetails);
+            android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.poster_container, dFrag);
+            transaction.addToBackStack(null);
+            transaction.commit();
+
+        }
+
+
     }
 
 
