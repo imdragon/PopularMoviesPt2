@@ -102,11 +102,11 @@ public class PosterFragment extends Fragment {
     }
 
     // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
+//    public void onButtonPressed(Uri uri) {
+//        if (mListener != null) {
+//            mListener.onFragmentInteraction(uri);
+//        }
+//    }
 
     @Override
     public void onAttach(Context context) {
@@ -137,7 +137,7 @@ public class PosterFragment extends Fragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void onFragmentInteraction(int position);
     }
 
     public void setupGrid() {
@@ -147,13 +147,22 @@ public class PosterFragment extends Fragment {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
+                mListener.onFragmentInteraction(position);
 //                Movie movieDetails = movieObjectArray.get(position);
 //                Log.e("movieID", movieObjectArray.get(position).getMovieId());
-//                Intent i = new Intent(MainActivity.this, DetailsFragment.class);
+//                Intent i = new Intent(getContext(), DetailsFragment.class);
 //                i.putExtra("movieInfo", movieDetails);
 //                startActivity(i);
             }
         });
+    }
+
+        @Override
+        public void onSaveInstanceState(Bundle outState) {
+        Log.e("SAVEDiN", "SAVEDiN");
+        outState.putStringArrayList("posters", moviePosterAddress);
+        outState.putParcelableArrayList("movies", movieObjectArray);
+        super.onSaveInstanceState(outState);
     }
 
     public class RequestPopularMovies extends AsyncTask<String, Void, Void> {

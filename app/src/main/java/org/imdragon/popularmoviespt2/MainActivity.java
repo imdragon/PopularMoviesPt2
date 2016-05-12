@@ -4,6 +4,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -32,7 +33,8 @@ public class MainActivity extends FragmentActivity implements PosterFragment.OnF
 //            getSupportFragmentManager().beginTransaction().add(R.id.details_fragment, detailsFragment).commit();
 
 
-        }PosterFragment posterFragment = new PosterFragment();
+        }
+        PosterFragment posterFragment = new PosterFragment();
         posterFragment.setArguments(getIntent().getExtras());
         getSupportFragmentManager().beginTransaction().add(R.id.poster_container, posterFragment).commit();
 
@@ -40,17 +42,11 @@ public class MainActivity extends FragmentActivity implements PosterFragment.OnF
 
 
     @Override
-    public void onFragmentInteraction(Uri uri) {
-
+    public void onFragmentInteraction(int position) {
+        Toast.makeText(MainActivity.this, position, Toast.LENGTH_SHORT).show();
     }
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        Log.e("SAVEDiN", "SAVEDiN");
-        outState.putStringArrayList("posters", moviePosterAddress);
-        outState.putParcelableArrayList("movies", movieObjectArray);
-        super.onSaveInstanceState(outState);
-    }
+
 }
 
 
