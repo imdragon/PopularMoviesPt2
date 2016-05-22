@@ -2,12 +2,10 @@ package org.imdragon.popularmoviespt2;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+
 import android.util.Log;
-import android.widget.Toast;
 
 import org.imdragon.popularmoviespt2.PosterFragment.OnFragmentInteractionListener;
-
-import java.util.ArrayList;
 
 public class MainActivity extends FragmentActivity implements OnFragmentInteractionListener {
 
@@ -77,7 +75,7 @@ public class MainActivity extends FragmentActivity implements OnFragmentInteract
             movDetails.putParcelable("movieInfo", movieDetails);
             dFrag.setArguments(movDetails);
             android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.poster_container, dFrag);
+            transaction.replace(R.id.details_fragment, dFrag);
             transaction.addToBackStack(null);
             transaction.commit();
 
