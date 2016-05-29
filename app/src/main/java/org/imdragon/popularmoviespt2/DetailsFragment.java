@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -117,7 +118,23 @@ public class DetailsFragment extends Fragment {
 
         rAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, mReviews);
         ListView reviewsList = (ListView) view.findViewById(R.id.reviewsListView);
-        reviewsList.setBackgroundColor(Color.WHITE);
+        reviewsList.setOnTouchListener(new View.OnTouchListener() {
+            /**
+             * Called when a touch event is dispatched to a view. This allows listeners to
+             * get a chance to respond before the target view.
+             *
+             * @param v     The view the touch event has been dispatched to.
+             * @param event The MotionEvent object containing full information about
+             *              the event.
+             * @return True if the listener has consumed the event, false otherwise.
+             */
+            @Override
+
+            public boolean onTouch(View v, MotionEvent event) {
+                v.getParent().requestDisallowInterceptTouchEvent(true);
+                return false;
+            }
+        });
         reviewsList.setAdapter(rAdapter);
         Toast.makeText(getContext(), details.getMovieId(),  Toast.LENGTH_SHORT).show();
 
@@ -155,7 +172,7 @@ public class DetailsFragment extends Fragment {
                 watchTrailer(v);
             }
         });
-//        reviewsList.setAdapter(rAdapter);
+
         new getTrailerOrReviews().execute(0, null, null);
 
         // check restore
@@ -251,7 +268,7 @@ public class getTrailerOrReviews extends AsyncTask<Integer, Void, Void> {
             if (i == 0) {
                 parameterTorR = "videos";
             } else if (i == 1) {
-                parameterTorR = "mReviews";
+                parameterTorR = "reviews";
             }
             try {
                 URL url = new URL("http://api.themoviedb.org/3/movie/" + mID + "/" + parameterTorR + "?api_key=" + getString(R.string.apiKey));
@@ -299,6 +316,7 @@ public class getTrailerOrReviews extends AsyncTask<Integer, Void, Void> {
             sb.append("\nReview by:\t");
             sb.append(review.getString("author"));
             mReviews.add(sb.toString());
+            Log.e("Reviews: ", mReviews.toString());
         }
         rAdapter.notifyDataSetChanged();
     }
