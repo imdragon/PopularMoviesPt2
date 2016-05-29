@@ -32,9 +32,9 @@ public class MainActivity extends FragmentActivity implements OnFragmentInteract
 
 
         }
-        PosterFragment posterFragment = new PosterFragment();
-        posterFragment.setArguments(getIntent().getExtras());
-        getSupportFragmentManager().beginTransaction().add(R.id.poster_container, posterFragment).commit();
+//        PosterFragment posterFragment = new PosterFragment();
+//        posterFragment.setArguments(getIntent().getExtras());
+//        getSupportFragmentManager().beginTransaction().add(R.id.poster_container, posterFragment).commit();
 
     }
 

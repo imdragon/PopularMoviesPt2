@@ -115,10 +115,10 @@ public class DetailsFragment extends Fragment {
         View view = inflater.inflate(R.layout.details_view, container, false);
         details = getArguments().getParcelable("movieInfo");
 
-//        rAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, mReviews);
-//        ListView reviewsList = (ListView) view.findViewById(R.id.reviewsListView);
-//        reviewsList.setBackgroundColor(Color.WHITE);
-//        reviewsList.setAdapter(rAdapter);
+        rAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, mReviews);
+        ListView reviewsList = (ListView) view.findViewById(R.id.reviewsListView);
+        reviewsList.setBackgroundColor(Color.WHITE);
+        reviewsList.setAdapter(rAdapter);
         Toast.makeText(getContext(), details.getMovieId(),  Toast.LENGTH_SHORT).show();
 
         TextView mTitle = (TextView) view.findViewById(R.id.original_title_detail);
