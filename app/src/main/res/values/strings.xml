@@ -1,6 +1,18 @@
 <resources>
     <string name="app_name">PopularMoviesPt2</string>
 
+    <string name="sort_option">Sort Method</string>
+    <string name="popularity">Most Popular</string>
+    <string name="rating">Highest Rated</string>
+    <string name="favorites">My Favorites</string>
+    <string name="deleteFavorites">Delete Favorites</string>
+
+    <array name="sortOptionArray">
+        <item>Popularity</item>
+        <item>Highest Rated</item>
+        <item>My Favorites</item>
+    </array>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

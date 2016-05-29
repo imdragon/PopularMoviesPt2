@@ -1,11 +1,16 @@
 package org.imdragon.popularmoviespt2;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -73,11 +78,82 @@ public class PosterFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.sortChoice) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setTitle(R.string.sort_option).setItems(R.array.sortOptionArray, new DialogInterface.OnClickListener() {
+                //// TODO: 3/8/2016 See about styling the AlertDialog without a new layout
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    if (which == 0) {
+                        getActivity().setTitle("Most Popular");
+                        new RequestPopularMovies().execute("popularity.desc", null, null);
+                        // popularity.desc
+                    }
+                    if (which == 1) {
+                        getActivity().setTitle("Highest Rated");
+                        // below request shows by highest rating for US movies
+                        new RequestPopularMovies().execute("certification_country=US&sort_by=vote_average.desc&vote_count.gte=1000", null, null);
+                        // rating.desc
+                    }
+                    if (which == 2) {
+                        getActivity().setTitle("My Favorites");
+//                        enable when doing favorites
+//                        favoriteLayout();
+                    }
+                }
+            });
+            AlertDialog pop = builder.create();
+            pop.show();
+        }
+        if (item.getItemId() == R.id.deleteAllFavorites) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setMessage("Delete all favorites?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                /**
+                 * This method will be invoked when a button in the dialog is clicked.
+                 *
+                 * @param dialog The dialog that received the click.
+                 * @param which  The button that was clicked (e.g.
+                 *               {@link DialogInterface#BUTTON1}) or the position
+                 */
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    getActivity().getContentResolver().delete(MovDBContract.MovieEntry.CONTENT_URI, null, null);
+                }
+            }).setNegativeButton("NO!", new DialogInterface.OnClickListener() {
+                /**
+                 * This method will be invoked when a button in the dialog is clicked.
+                 *
+                 * @param dialog The dialog that received the click.
+                 * @param which  The button that was clicked (e.g.
+                 *               {@link DialogInterface#BUTTON1}) or the position
+                 */
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                }
+            });
+            AlertDialog pop = builder.create();
+            pop.show();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        MenuInflater inflate = getActivity().getMenuInflater();
+        inflate.inflate(R.menu.popup_menu_layout, menu);
+    }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
