@@ -89,7 +89,7 @@ public class PosterFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.sortChoice) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.alertdialog);
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.alertDialog);
             builder.setTitle(R.string.sort_option).setItems(R.array.sortOptionArray, new DialogInterface.OnClickListener() {
                 //// TODO: 3/8/2016 See about styling the AlertDialog without a new layout
                 @Override
@@ -335,7 +335,7 @@ public class PosterFragment extends Fragment {
                     JSONObject aTitle = movies.getJSONObject(i);
                     moviePosterAddress.add(aTitle.getString(MOVIE_POSTER));
                     // check to see if working
-                    Log.e("poster path" + i, aTitle.getString(MOVIE_POSTER));
+//                    Log.e("poster path" + i, aTitle.getString(MOVIE_POSTER));
                     // Build movie object
                     tempMovie.setTitle(aTitle.getString(MOVIE_TITLE));
                     tempMovie.setPoster(aTitle.getString(MOVIE_POSTER));

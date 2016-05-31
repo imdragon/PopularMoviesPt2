@@ -56,7 +56,8 @@ public class ImageAdapter extends BaseAdapter {
         } else {
             imageView = (ImageView) convertView;
         }
-        Log.e("Url: ", "http://image.tmdb.org/t/p/w780/" + moviePathString[position]);
+//        Use below to make sure you get unique urls
+//        Log.e("Url: ", "http://image.tmdb.org/t/p/w780/" + moviePathString[position]);
         return imageView;
     }
 

@@ -6,7 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:alertDialogTheme">@style/alertdialog</item>
+        <item name="android:alertDialogTheme">@style/alertDialog</item>
         <item name="android:textColorPrimary">@android:color/holo_blue_bright</item>
     </style>
 
@@ -14,10 +14,11 @@
         <item name="android:textColor">@android:color/white</item>
 
     </style>
-    <style name="alertdialog">
+    <style name="alertDialog" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:textColor">@android:color/holo_green_dark</item>
         <item name="android:textColorAlertDialogListItem">@android:color/white</item>
         <item name="android:windowMinWidthMajor">@android:dimen/dialog_min_width_major</item>
         <item name="android:windowMinWidthMinor">@android:dimen/dialog_min_width_minor</item>
