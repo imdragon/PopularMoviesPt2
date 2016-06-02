@@ -47,17 +47,9 @@ public class MainActivity extends FragmentActivity implements OnFragmentInteract
         DetailsFragment detailsFragment = (DetailsFragment) getSupportFragmentManager().findFragmentById(R.id.details_fragment);
 
         if (detailsFragment != null) {
-            DetailsFragment dFrag = new DetailsFragment();
+            Log.e("PosterFragment", "IF ran");
 
-            Bundle movDetails = new Bundle();
-
-            Log.e("movieID", chosenMovie.getMovieId());
-            movDetails.putParcelable("movieInfo", chosenMovie);
-            dFrag.setArguments(movDetails);
-            android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.details_fragment, dFrag);
-            transaction.addToBackStack(null);
-            transaction.commit();
+            detailsFragment.updateDetailsFragment(chosenMovie);
 
         } else {
             ///******* SAMPLE CODE! ***********
@@ -78,7 +70,7 @@ public class MainActivity extends FragmentActivity implements OnFragmentInteract
 //            // Commit the transaction
 //            transaction.commit();
             ///******* SAMPLE CODE! ***********
-
+            Log.e("PosterFragment", "ELSE ran");
             DetailsFragment dFrag = new DetailsFragment();
 
             Bundle movDetails = new Bundle();

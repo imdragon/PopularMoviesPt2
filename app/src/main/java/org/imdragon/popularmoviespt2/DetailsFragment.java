@@ -112,16 +112,13 @@ public class DetailsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.details_view, container, false);
 
         // check restore
         if (savedInstanceState != null) {
             //nothing right now
         }
+        return inflater.inflate(R.layout.details_view, container, false);
 
-        // Inflate the layout for this fragment
-
-        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -131,7 +128,7 @@ public class DetailsFragment extends Fragment {
 //        }
 //    }
 
-    public void updateDetailsFragment(Movie incomingMovie){
+    public void updateDetailsFragment(Movie incomingMovie) {
         View view = getView();
 
         details = getArguments().getParcelable("movieInfo");
@@ -208,7 +205,7 @@ public class DetailsFragment extends Fragment {
         Bundle args = getArguments();
         if (args != null) {
             updateDetailsFragment((Movie) args.getParcelable("movieInfo"));
-        } else{
+        } else {
             Log.e("DetailsFragment", "No movie was passed!");
         }
     }
