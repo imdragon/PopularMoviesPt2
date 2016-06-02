@@ -113,6 +113,27 @@ public class DetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.details_view, container, false);
+
+        // check restore
+        if (savedInstanceState != null) {
+            //nothing right now
+        }
+
+        // Inflate the layout for this fragment
+
+        return view;
+    }
+
+    // TODO: Rename method, update argument and hook method into UI event
+//    public void onButtonPressed(Uri uri) {
+//        if (mListener != null) {
+//            mListener.onFragmentInteraction(uri);
+//        }
+//    }
+
+    public void updateDetailsFragment(Movie incomingMovie){
+        View view = getView();
+
         details = getArguments().getParcelable("movieInfo");
 
         rAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, mReviews);
@@ -174,22 +195,23 @@ public class DetailsFragment extends Fragment {
 
         new getTrailerOrReviews().execute(0, null, null);
         favoriteCheck();
-        // check restore
-        if (savedInstanceState != null) {
-            //nothing right now
-        }
-
-        // Inflate the layout for this fragment
-
-        return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-//    public void onButtonPressed(Uri uri) {
-//        if (mListener != null) {
-//            mListener.onFragmentInteraction(uri);
-//        }
-//    }
+    /**
+     * Called when the Fragment is visible to the user.  This is generally
+     * tied to {@link Activity#onStart() Activity.onStart} of the containing
+     * Activity's lifecycle.
+     */
+    @Override
+    public void onStart() {
+        super.onStart();
+        Bundle args = getArguments();
+        if (args != null) {
+            updateDetailsFragment((Movie) args.getParcelable("movieInfo"));
+        } else{
+            Log.e("DetailsFragment", "No movie was passed!");
+        }
+    }
 
     @Override
     public void onAttach(Context context) {

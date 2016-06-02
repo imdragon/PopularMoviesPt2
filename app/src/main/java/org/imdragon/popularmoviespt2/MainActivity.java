@@ -19,12 +19,10 @@ public class MainActivity extends FragmentActivity implements OnFragmentInteract
 
 
         // check for to see which layout I'm using
-        if (findViewById(R.id.details_fragment) != null) {
+        if (findViewById(R.id.only_container) != null) {
             // if restoring don't do anything further so we don't layer something
             if (savedInstanceState != null) {
-                Toast.makeText(MainActivity.this, "HI!", Toast.LENGTH_SHORT).show();
-//                Log.e("DetailsFrag", "was NOT null");
-//onPosterSelected((Movie) savedInstanceState.getParcelable("currentMovie"));
+                return;
             }
 //            Log.e("DetailsFrag", "WAS null");
 //            onPosterSelected((Movie) savedInstanceState.getParcelable("currentMovie"));
@@ -34,20 +32,12 @@ public class MainActivity extends FragmentActivity implements OnFragmentInteract
 //
 //            // add the fragment to the layout
 //            getSupportFragmentManager().beginTransaction().add(R.id.poster_container, detailsFragment).commit();
-
-
-        } else {
-//            if(findViewById(R.id.poster_container) == null){
-            // disable below for Tablet to work
             PosterFragment posterFragment = new PosterFragment();
             posterFragment.setArguments(getIntent().getExtras());
-            getSupportFragmentManager().beginTransaction().add(R.id.poster_container, posterFragment).commit();}
-//            else{
-//                if (savedInstanceState != null && savedInstanceState.containsKey("currentMovie"));
-//                onPosterSelected((Movie) savedInstanceState.getParcelable("currentMovie"));
-            }
+            getSupportFragmentManager().beginTransaction().add(R.id.poster_container, posterFragment).commit();
+        }
 
-
+    }
 
 
     @Override
