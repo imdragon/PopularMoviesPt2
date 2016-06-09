@@ -34,7 +34,7 @@ public class MainActivity extends FragmentActivity implements OnFragmentInteract
 //            getSupportFragmentManager().beginTransaction().add(R.id.poster_container, detailsFragment).commit();
             PosterFragment posterFragment = new PosterFragment();
             posterFragment.setArguments(getIntent().getExtras());
-            getSupportFragmentManager().beginTransaction().add(R.id.poster_container, posterFragment).commit();
+            getSupportFragmentManager().beginTransaction().add(R.id.only_container, posterFragment).commit();
         }
 
     }
@@ -79,7 +79,7 @@ public class MainActivity extends FragmentActivity implements OnFragmentInteract
             movDetails.putParcelable("movieInfo", chosenMovie);
             dFrag.setArguments(movDetails);
             android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.poster_container, dFrag);
+            transaction.replace(R.id.only_container, dFrag);
             transaction.addToBackStack(null);
             transaction.commit();
 

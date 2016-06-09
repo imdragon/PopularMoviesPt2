@@ -86,6 +86,7 @@ public class DetailsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        setRetainInstance(true);
         if (getArguments() != null) {
 //            mParam1 = getArguments().getString(MOVIEDETAILS);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -112,10 +113,22 @@ public class DetailsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+setRetainInstance(true);
         // check restore
         if (savedInstanceState != null) {
-            //nothing right now
+            Log.e("DetailsFragment", "savedInstance is not null");
+            if (getArguments() != null) {
+                Log.e("DetailsFragment", "has arguments");
+
+                if (getArguments().containsKey("movieInfo")) {
+                    Log.e("DetailsFragment", "has movieInfo");
+                    Movie temp = (Movie) getArguments().getParcelable("movieInfo");
+
+Log.e("DetailsFragment", temp.getTitle());
+
+                }
+                //nothing right now
+            }
         }
         return inflater.inflate(R.layout.details_view, container, false);
 
@@ -130,10 +143,10 @@ public class DetailsFragment extends Fragment {
 
     public void updateDetailsFragment(Movie incomingMovie) {
         View view = getView();
-
-        details = getArguments().getParcelable("movieInfo");
-
+//        details = getArguments().getParcelable("movieInfo");
+        details = incomingMovie;
         rAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, mReviews);
+        assert view != null;
         ListView reviewsList = (ListView) view.findViewById(R.id.reviewsListView);
         reviewsList.setOnTouchListener(new View.OnTouchListener() {
             /**
@@ -204,9 +217,28 @@ public class DetailsFragment extends Fragment {
         super.onStart();
         Bundle args = getArguments();
         if (args != null) {
+            Log.e("DetailsFragment", "args check");
+            Log.e("DetailsFragment", "onStart fired");
+//            details = args.getParcelable("movieInfo");
             updateDetailsFragment((Movie) args.getParcelable("movieInfo"));
         } else {
             Log.e("DetailsFragment", "No movie was passed!");
+        }
+    }
+
+    /**
+     * Called when the fragment is visible to the user and actively running.
+     * This is generally
+     * tied to {@link Activity#onResume() Activity.onResume} of the containing
+     * Activity's lifecycle.
+     */
+    @Override
+    public void onResume() {
+        super.onResume();
+        Bundle args = getArguments();
+        if(args != null){
+            Log.e("DetailsFragment", "onResume fired");
+            updateDetailsFragment((Movie) getArguments().getParcelable("movieInfo"));
         }
     }
 
