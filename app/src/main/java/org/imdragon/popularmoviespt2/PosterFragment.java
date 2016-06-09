@@ -199,6 +199,22 @@ public class PosterFragment extends Fragment {
     }
 
 
+    @Override
+    public void onResume() {
+        Bundle bundle = getArguments();
+        if (bundle == null) {
+            new RequestPopularMovies().execute("popularity.desc", null, null);
+            Log.e("onResume", "WAS NULL");
+        } else {
+            moviePosterAddress = bundle.getStringArrayList("posters");
+            movieObjectArray = bundle.getParcelableArrayList("movies");
+            selectedMovie = bundle.getInt("lastChoice", 0);
+            setupGrid();
+            Log.e("onResume", "NOT NULL");
+        }
+        super.onResume();
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -206,16 +222,18 @@ public class PosterFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.activity_main, container, false);
         gridView = (GridView) view.findViewById(R.id.gridview);
-        if (savedInstanceState == null) {
-            new RequestPopularMovies().execute("popularity.desc", null, null);
-            Log.e("WAS NULL", "WAS NULL");
-        } else {
-            moviePosterAddress = savedInstanceState.getStringArrayList("posters");
-            movieObjectArray = savedInstanceState.getParcelableArrayList("movies");
-            selectedMovie = savedInstanceState.getInt("lastChoice", 0);
-            setupGrid();
-            Log.e("NOT NULL", "NOT NULL");
-        }
+//        if (savedInstanceState == null) {
+//            new RequestPopularMovies().execute("popularity.desc", null, null);
+//            Log.e("WAS NULL", "WAS NULL");
+//        } else {
+//            moviePosterAddress = savedInstanceState.getStringArrayList("posters");
+//            movieObjectArray = savedInstanceState.getParcelableArrayList("movies");
+//            selectedMovie = savedInstanceState.getInt("lastChoice", 0);
+//            setupGrid();
+//            Log.e("NOT NULL", "NOT NULL");
+//        }
+
+
 
         return view;
     }

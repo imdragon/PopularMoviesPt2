@@ -12,6 +12,7 @@ public class MainActivity extends FragmentActivity implements OnFragmentInteract
 
 
     private Movie curMovie;
+    private PosterFragment currentPostersState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +36,7 @@ public class MainActivity extends FragmentActivity implements OnFragmentInteract
 //            getSupportFragmentManager().beginTransaction().add(R.id.poster_container, detailsFragment).commit();
             PosterFragment posterFragment = new PosterFragment();
             posterFragment.setArguments(getIntent().getExtras());
-            getSupportFragmentManager().beginTransaction().add(R.id.only_container, posterFragment).addToBackStack(null).commit();
+            getSupportFragmentManager().beginTransaction().add(R.id.only_container, posterFragment, "postersFragment").commit();
         }
 
     }
@@ -73,15 +74,14 @@ public class MainActivity extends FragmentActivity implements OnFragmentInteract
             ///******* SAMPLE CODE! ***********
             Log.e("PosterFragment", "ELSE ran");
             DetailsFragment dFrag = new DetailsFragment();
-
             Bundle movDetails = new Bundle();
 
             Log.e("movieID", chosenMovie.getMovieId());
             movDetails.putParcelable("movieInfo", chosenMovie);
             dFrag.setArguments(movDetails);
             android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.only_container, dFrag);
-            transaction.addToBackStack(null);
+            transaction.add(R.id.only_container, dFrag, "details");
+            transaction.addToBackStack("tag");
             transaction.commit();
 
         }
@@ -96,10 +96,23 @@ public class MainActivity extends FragmentActivity implements OnFragmentInteract
 //    @Override
 //    public void onBackPressed() {
 //        Log.e("MainActivity", "backpressed Called");
-//        FragmentManager fm = getSupportFragmentManager();
-//        fm.popBackStack();
+//        PosterFragment originalPosters = (PosterFragment) getSupportFragmentManager().findFragmentByTag("postersFragment");
+//       if (originalPosters.isVisible()){
+//           return;
+//       } else {
+//           getSupportFragmentManager().popBackStack();
+//       }
 //
 //    }
+
+    @Override
+    public void onBackPressed() {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            getSupportFragmentManager().popBackStack();
+        } else {
+            super.onBackPressed();
+        }
+    }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
