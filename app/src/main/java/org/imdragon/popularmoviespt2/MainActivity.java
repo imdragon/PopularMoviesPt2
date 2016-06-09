@@ -2,6 +2,7 @@ package org.imdragon.popularmoviespt2;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -34,7 +35,7 @@ public class MainActivity extends FragmentActivity implements OnFragmentInteract
 //            getSupportFragmentManager().beginTransaction().add(R.id.poster_container, detailsFragment).commit();
             PosterFragment posterFragment = new PosterFragment();
             posterFragment.setArguments(getIntent().getExtras());
-            getSupportFragmentManager().beginTransaction().add(R.id.only_container, posterFragment).commit();
+            getSupportFragmentManager().beginTransaction().add(R.id.only_container, posterFragment).addToBackStack(null).commit();
         }
 
     }
@@ -88,6 +89,17 @@ public class MainActivity extends FragmentActivity implements OnFragmentInteract
 
     }
 
+//    /**
+//     * Take care of popping the fragment back stack or finishing the activity
+//     * as appropriate.
+//     */
+//    @Override
+//    public void onBackPressed() {
+//        Log.e("MainActivity", "backpressed Called");
+//        FragmentManager fm = getSupportFragmentManager();
+//        fm.popBackStack();
+//
+//    }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
