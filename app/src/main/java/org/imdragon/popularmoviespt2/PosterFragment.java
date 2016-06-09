@@ -285,11 +285,6 @@ public class PosterFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
                 sendMovie(movieObjectArray.get(position));
-//                Movie movieDetails = movieObjectArray.get(position);
-//                Log.e("movieID", movieObjectArray.get(position).getMovieId());
-//                Intent i = new Intent(getContext(), DetailsFragment.class);
-//                i.putExtra("movieInfo", movieDetails);
-//                startActivity(i);
             }
         });
     }

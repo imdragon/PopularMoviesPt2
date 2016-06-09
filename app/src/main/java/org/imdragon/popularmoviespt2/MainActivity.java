@@ -10,7 +10,6 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
 
 
     private Movie curMovie;
-    private PosterFragment currentPostersState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,14 +23,7 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
             if (savedInstanceState != null) {
                 return;
             }
-//            Log.e("DetailsFrag", "WAS null");
-//            onPosterSelected((Movie) savedInstanceState.getParcelable("currentMovie"));
-//            DetailsFragment detailsFragment = new DetailsFragment();
-//            // add these in case you need to start a new activity
-//            detailsFragment.setArguments(getIntent().getExtras());
-//
-//            // add the fragment to the layout
-//            getSupportFragmentManager().beginTransaction().add(R.id.poster_container, detailsFragment).commit();
+
             PosterFragment posterFragment = new PosterFragment();
             posterFragment.setArguments(getIntent().getExtras());
             getSupportFragmentManager().beginTransaction().add(R.id.only_container, posterFragment, "postersFragment").commit();
@@ -52,24 +44,7 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
             detailsFragment.updateDetailsFragment(chosenMovie);
 
         } else {
-            ///******* SAMPLE CODE! ***********
-//            // If the frag is not available, we're in the one-pane layout and must swap frags...
-//
-//            // Create fragment and give it an argument for the selected article
-//            ArticleFragment newFragment = new ArticleFragment();
-//            Bundle args = new Bundle();
-//            args.putInt(ArticleFragment.ARG_POSITION, position);
-//            newFragment.setArguments(args);
-//            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//
-//            // Replace whatever is in the fragment_container view with this fragment,
-//            // and add the transaction to the back stack so the user can navigate back
-//            transaction.replace(R.id.fragment_container, newFragment);
-//            transaction.addToBackStack(null);
-//
-//            // Commit the transaction
-//            transaction.commit();
-            ///******* SAMPLE CODE! ***********
+
             Log.e("PosterFragment", "ELSE ran");
             DetailsFragment dFrag = new DetailsFragment();
             Bundle movDetails = new Bundle();
@@ -86,22 +61,6 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
 
 
     }
-
-//    /**
-//     * Take care of popping the fragment back stack or finishing the activity
-//     * as appropriate.
-//     */
-//    @Override
-//    public void onBackPressed() {
-//        Log.e("MainActivity", "backpressed Called");
-//        PosterFragment originalPosters = (PosterFragment) getSupportFragmentManager().findFragmentByTag("postersFragment");
-//       if (originalPosters.isVisible()){
-//           return;
-//       } else {
-//           getSupportFragmentManager().popBackStack();
-//       }
-//
-//    }
 
     @Override
     public void onBackPressed() {

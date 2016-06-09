@@ -122,7 +122,7 @@ setRetainInstance(true);
 
                 if (getArguments().containsKey("movieInfo")) {
                     Log.e("DetailsFragment", "has movieInfo");
-                    Movie temp = (Movie) getArguments().getParcelable("movieInfo");
+                    Movie temp = getArguments().getParcelable("movieInfo");
 
 Log.e("DetailsFragment", temp.getTitle());
 
@@ -207,11 +207,6 @@ Log.e("DetailsFragment", temp.getTitle());
         favoriteCheck();
     }
 
-    /**
-     * Called when the Fragment is visible to the user.  This is generally
-     * tied to {@link Activity#onStart() Activity.onStart} of the containing
-     * Activity's lifecycle.
-     */
     @Override
     public void onStart() {
         super.onStart();
@@ -226,12 +221,7 @@ Log.e("DetailsFragment", temp.getTitle());
         }
     }
 
-    /**
-     * Called when the fragment is visible to the user and actively running.
-     * This is generally
-     * tied to {@link Activity#onResume() Activity.onResume} of the containing
-     * Activity's lifecycle.
-     */
+
     @Override
     public void onResume() {
         super.onResume();
@@ -338,15 +328,8 @@ Log.e("DetailsFragment", temp.getTitle());
 
 
     public class getTrailerOrReviews extends AsyncTask<Integer, Void, Void> {
-//    Fragment callingActivity;
 
         StringBuilder total = new StringBuilder();
-        String firstTrailer;
-
-//    public getTrailerOrReviews(Fragment activity) {
-//        callingActivity = activity;
-//    }
-
 
         /**
          * Override this method to perform a computation on a background thread. The
