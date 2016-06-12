@@ -95,13 +95,14 @@ public class PosterFragment extends Fragment {
                 public void onClick(DialogInterface dialog, int which) {
                     if (which == 0) {
                         getActivity().setTitle("Most Popular");
-                        new RequestPopularMovies().execute("popularity.desc", null, null);
+                        new RequestPopularMovies().execute("popular", null, null);
                         // popularity.desc
                     }
                     if (which == 1) {
                         getActivity().setTitle("Highest Rated");
                         // below request shows by highest rating for US movies
-                        new RequestPopularMovies().execute("certification_country=US&sort_by=vote_average.desc&vote_count.gte=1000", null, null);
+//                        new RequestPopularMovies().execute("certification_country=US&sort_by=vote_average.desc&vote_count.gte=1000", null, null);
+                        new RequestPopularMovies().execute("top_rated", null, null);
                         // rating.desc
                     }
                     if (which == 2) {
@@ -202,7 +203,7 @@ public class PosterFragment extends Fragment {
     public void onResume() {
         Bundle bundle = getArguments();
         if (bundle == null) {
-            new RequestPopularMovies().execute("popularity.desc", null, null);
+            new RequestPopularMovies().execute("popular", null, null);
             getActivity().setTitle("Most Popular");
             Log.e("onResume", "WAS NULL");
         } else {
@@ -326,7 +327,7 @@ public class PosterFragment extends Fragment {
 
             // using the apikey in a separate string file to protect the apikey
             try {
-                URL url = new URL("https://api.themoviedb.org/3/discover/movie?sort_by=" + params[0] + "&api_key=" + getString(R.string.apiKey));
+                URL url = new URL("https://api.themoviedb.org/3/movie/" + params[0] + "?api_key=" + getString(R.string.apiKey));
                 // making url request and sending it to be read
                 Log.e("my url is", String.valueOf(url));
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
