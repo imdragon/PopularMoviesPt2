@@ -2,7 +2,6 @@ package org.imdragon.popularmoviespt2;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -204,6 +203,7 @@ public class PosterFragment extends Fragment {
         Bundle bundle = getArguments();
         if (bundle == null) {
             new RequestPopularMovies().execute("popularity.desc", null, null);
+            getActivity().setTitle("Most Popular");
             Log.e("onResume", "WAS NULL");
         } else {
             moviePosterAddress = bundle.getStringArrayList("posters");
