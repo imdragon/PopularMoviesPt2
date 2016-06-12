@@ -404,7 +404,7 @@ Log.e("DetailsFragment", temp.getTitle());
                 mReviews.add(sb.toString());
                 Log.e("Reviews: ", mReviews.toString());
             }
-            rAdapter.notifyDataSetChanged();
+//            rAdapter.notifyDataSetChanged();
         }
 
         @Override
@@ -415,6 +415,7 @@ Log.e("DetailsFragment", temp.getTitle());
                 TextView mTrailer = (TextView) getView().findViewById(R.id.trailerLink);
                 mTrailer.setVisibility(View.VISIBLE);
             }
+            rAdapter.notifyDataSetChanged();
 
         }
     }
