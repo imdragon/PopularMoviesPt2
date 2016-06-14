@@ -28,7 +28,13 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
             posterFragment.setArguments(getIntent().getExtras());
             getSupportFragmentManager().beginTransaction().add(R.id.only_container, posterFragment, "postersFragment").commit();
         }
+ if (savedInstanceState != null){
+     if (savedInstanceState.containsKey("currentMovie")) {
+         Log.e("MainActivity", "Contains currentMovie");
+         onPosterSelected((Movie) savedInstanceState.getParcelable("currentMovie"));
 
+     }
+ }
     }
 
 
