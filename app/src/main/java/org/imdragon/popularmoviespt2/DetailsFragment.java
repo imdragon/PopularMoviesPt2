@@ -282,7 +282,6 @@ public class DetailsFragment extends Fragment {
         Boolean flag = false;
         String[] movieTitle = {MovDBContract.MovieEntry.COLUMN_MOVIEID};
         Cursor cs = this.getActivity().getContentResolver().query(MovDBContract.MovieEntry.CONTENT_URI, movieTitle, null, null, null);
-//Cursor cs = resolver.query(MovDBContract.MovieEntry.CONTENT_URI, new String[]{MovDBContract.MovieEntry.COLUMN_MOVIEID}, null,null, null);
         if (cs == null) {
             Log.e("DetailsFragment", "FCHECK false");
             Log.e("DetailsFragment", cs.toString());
