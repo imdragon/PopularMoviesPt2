@@ -1,5 +1,6 @@
 package org.imdragon.popularmoviespt2;
 
+import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -60,6 +61,7 @@ public class DetailsFragment extends Fragment {
     ArrayAdapter<String> rAdapter;
     Button fButton;
 
+    //ContentResolver resolver = this.getActivity().getContentResolver();
     public DetailsFragment() {
         // Required empty public constructor
     }
@@ -113,7 +115,7 @@ public class DetailsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-setRetainInstance(true);
+        setRetainInstance(true);
         // check restore
         if (savedInstanceState != null) {
             Log.e("DetailsFragment", "savedInstance is not null");
@@ -124,7 +126,7 @@ setRetainInstance(true);
                     Log.e("DetailsFragment", "has movieInfo");
                     Movie temp = getArguments().getParcelable("movieInfo");
 
-Log.e("DetailsFragment", temp.getTitle());
+                    Log.e("DetailsFragment", temp.getTitle());
 
                 }
                 //nothing right now
@@ -226,7 +228,7 @@ Log.e("DetailsFragment", temp.getTitle());
     public void onResume() {
         super.onResume();
         Bundle args = getArguments();
-        if(args != null){
+        if (args != null) {
             Log.e("DetailsFragment", "onResume fired");
             updateDetailsFragment((Movie) getArguments().getParcelable("movieInfo"));
         }
@@ -276,17 +278,29 @@ Log.e("DetailsFragment", temp.getTitle());
     }
 
     private Boolean favoriteCheck() {
+        Log.e("DetailsFragment", "Initiating FCHECK");
         Boolean flag = false;
-        Cursor cs = getActivity().getContentResolver().query(MovDBContract.MovieEntry.CONTENT_URI, new String[]{MovDBContract.MovieEntry.COLUMN_MOVIEID}, null, null, null);
+        String[] movieTitle = {MovDBContract.MovieEntry.COLUMN_MOVIEID};
+        Cursor cs = this.getActivity().getContentResolver().query(MovDBContract.MovieEntry.CONTENT_URI, movieTitle, null, null, null);
+//Cursor cs = resolver.query(MovDBContract.MovieEntry.CONTENT_URI, new String[]{MovDBContract.MovieEntry.COLUMN_MOVIEID}, null,null, null);
         if (cs == null) {
-            return flag;
+            Log.e("DetailsFragment", "FCHECK false");
+            Log.e("DetailsFragment", cs.toString());
+            return false;
         } else {
+            Log.e("DetailsFragment", "FCHECK else running");
             while (cs.moveToNext()) {
                 if (cs.getString(0).equals(details.getMovieId())) {
+                    Log.e("FCHECK cs", cs.getString(0));
+                    Log.e("FCHECK details", details.getMovieId());
                     fButton.setBackgroundColor(Color.YELLOW);
                     fButton.setText("Favorite!");
-                    flag = true;
+//                    flag = true;
+                    break;
                 } else {
+                    Log.e("DetailsFragment", "FCHECK while/else running");
+                    fButton.setText("Mark as\nFavorite");
+                    fButton.setBackgroundColor(getResources().getColor(R.color.buttonBlue));
                     flag = false;
                 }
             }

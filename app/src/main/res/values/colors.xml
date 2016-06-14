@@ -7,4 +7,5 @@
     <color name="barColor">#00796b</color>
 
     <color name="colorAccent">#eeff41</color>
+    <color name="buttonBlue">#00ffff</color>
 </resources>
