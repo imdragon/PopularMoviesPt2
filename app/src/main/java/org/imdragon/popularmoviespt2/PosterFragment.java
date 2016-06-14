@@ -1,5 +1,6 @@
 package org.imdragon.popularmoviespt2;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
@@ -42,7 +43,7 @@ public class PosterFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     GridView gridView;
     int selectedMovie = 0;
-
+Bundle bundle;
 
     protected ArrayList<String> moviePosterAddress = new ArrayList<>();
     public ArrayList<Movie> movieObjectArray;
@@ -80,6 +81,8 @@ public class PosterFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+//        setRetainInstance(true);
+        bundle = savedInstanceState;
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -201,7 +204,7 @@ public class PosterFragment extends Fragment {
 
     @Override
     public void onResume() {
-        Bundle bundle = getArguments();
+//        bundle = getArguments();
         if (bundle == null) {
             new RequestPopularMovies().execute("popular", null, null);
             getActivity().setTitle("Most Popular");
@@ -210,12 +213,12 @@ public class PosterFragment extends Fragment {
             moviePosterAddress = bundle.getStringArrayList("posters");
             movieObjectArray = bundle.getParcelableArrayList("movies");
             selectedMovie = bundle.getInt("lastChoice", 0);
+            getActivity().setTitle(bundle.getString("currentTitle"));
             setupGrid();
             Log.e("onResume", "NOT NULL");
         }
         super.onResume();
-
-    }
+}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -299,6 +302,7 @@ public class PosterFragment extends Fragment {
         Log.e("SAVEDiN", "SAVEDiN");
         outState.putStringArrayList("posters", moviePosterAddress);
         outState.putParcelableArrayList("movies", movieObjectArray);
+            outState.putString("currentTitle", getActivity().getTitle().toString());
         super.onSaveInstanceState(outState);
     }
 
@@ -371,9 +375,6 @@ public class PosterFragment extends Fragment {
         @Override
         protected void onPostExecute(Void aVoid) {
             setupGrid();
-//            if(((PosterFragment) callingActivity).isDualPane){
-//                ((PosterFragment) callingActivity).updateDetailsFragment();
-//            }
         }
     }
 }

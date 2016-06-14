@@ -10,6 +10,7 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
 
 
     private Movie curMovie;
+    PosterFragment posterFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,17 +25,16 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
                 return;
             }
 
-            PosterFragment posterFragment = new PosterFragment();
+            posterFragment = new PosterFragment();
             posterFragment.setArguments(getIntent().getExtras());
             getSupportFragmentManager().beginTransaction().add(R.id.only_container, posterFragment, "postersFragment").commit();
         }
- if (savedInstanceState != null){
-     if (savedInstanceState.containsKey("currentMovie")) {
-         Log.e("MainActivity", "Contains currentMovie");
-         onPosterSelected((Movie) savedInstanceState.getParcelable("currentMovie"));
-
-     }
- }
+        if (savedInstanceState != null) {
+            if (savedInstanceState.containsKey("currentMovie")) {
+                Log.e("MainActivity", "Contains currentMovie");
+                onPosterSelected((Movie) savedInstanceState.getParcelable("currentMovie"));
+            }
+        }
     }
 
 

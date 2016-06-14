@@ -29,7 +29,6 @@
                 android:background="@android:color/transparent"
                 android:paddingLeft="16dp"
                 android:paddingRight="50dp"
-                android:text="The Movie Title"
                 android:textColor="@android:color/white"
                 android:textSize="34sp" />
             <!--android:textColor="#cecece"-->
@@ -69,7 +68,6 @@
                     style="@style/appText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="released August 2015"
                     android:textAppearance="@android:style/TextAppearance.Material.Large"
                     android:textStyle="bold" />
 
@@ -86,7 +84,6 @@
                     style="@style/appText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="5/7"
                     android:textAppearance="@android:style/TextAppearance.Material.Medium" />
 
                 <TextView
@@ -112,7 +109,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="A bunch of random text right here for the mean time so that we can replace it later with the actual synopsis"
             android:textStyle="italic" />
 
         <View
