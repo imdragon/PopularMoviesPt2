@@ -284,7 +284,6 @@ public class DetailsFragment extends Fragment {
         Cursor cs = this.getActivity().getContentResolver().query(MovDBContract.MovieEntry.CONTENT_URI, movieTitle, null, null, null);
         if (cs == null) {
             Log.e("DetailsFragment", "FCHECK false");
-            Log.e("DetailsFragment", cs.toString());
             return false;
         } else {
             Log.e("DetailsFragment", "FCHECK else running");
